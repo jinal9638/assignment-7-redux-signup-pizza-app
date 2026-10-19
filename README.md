@@ -73,7 +73,7 @@ https://github.com/jinal9638/assignment-7-redux-signup-pizza-app.git
 
 # Deployment
 
-
+https://assignment-7-redux-signup-pizza-app-two.vercel.app/
 
 cd redux-pizza-app
 
