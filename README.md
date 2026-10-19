@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Redux Pizza App - SliceCraft
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive, and state-driven e-commerce pizza ordering web application built with React, Redux Toolkit, React Router DOM, and Tailwind CSS.
 
-## Available Scripts
+This application provides a end-to-end food ordering experience—from customizing pizza selections to validating address/contact details and completing the order with instant state resets and smooth navigation.
 
-In the project directory, you can run:
+# Key Features
 
-### `npm start`
+# Dynamic Pizza Customizer: Interactive selection of sizes and crust types with real-time base price calculation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Centralized State Management (Redux Toolkit):
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Live cart calculations (Subtotal, 5% GST & Taxes, Delivery Fee logic, Total Amount).
 
-### `npm test`
+Dynamic user state and form state syncing.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+UI state control for modals and global notification toasts.
 
-### `npm run build`
+# Form Validation: Client-side validation for address inputs and pincodes with immediate visual feedback.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Complete Order Workflow: Confirmation via order modal, automated cart clearing (clearCart), success toasts, and instant redirection back to the Menu Page (/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Fully Responsive Design: Clean layout built using Tailwind CSS for desktop, tablet, and mobile views.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Tech Stack
 
-### `npm run eject`
+State Management: Redux Toolkit (@reduxjs/toolkit), React Redux (react-redux)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Routing: React Router DOM v6
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Styling: Tailwind CSS
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Icons & UI: Heroicons / Lucide React
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+src/
+├── app/
+│   ├── hooks.js                # Custom Redux hooks (useAppDispatch, useAppSelector)
+│   └── store.js                # Global Redux store configuration
+├── components/
+│   ├── Navbar.js               # App header with live cart count badge
+│   ├── OrderSummaryModal.js    # Modal popup for final order confirmation
+|   ├── PizzaCustomizer.js      # Interactively configure pizza size,crust,toppings, dispatching state changes 
+│   └── Toast.js                # Floating toast notification component
+├── features/
+│   ├── cart/
+│   │   └── cartSlice.js        # Cart items, item quantities, and pricing calculations
+│   ├── ui/
+│   │   └── uiSlice.js          # Modal visibility and toast notification state
+│   ├── pizza/
+│   │   └── pizzaSlice.js       # Dynamically computing the item price before dispatching it to the cart
+│   └── user/
+│       └── userSlice.js        # User auth, guest order handling, form fields state
+├── pages/
+│   ├── CartPage.js
+│   ├── CheckoutPage.js         # Address, payment choice, and order summary page
+│   ├── MenuPage.js             # Dynamic pizza customization & product list
+│   └── SignupPage.js           # Registration form with live field validation
+├── App.css 
+├── index.css
+├── tailwind.config.js 
+├── postcss.config.js
+├── App.js 
+├── App.js                      # Application routes configuration
+└── index.js                    # React application entry point
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+# Git repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+https://github.com/jinal9638/assignment-7-redux-signup-pizza-app.git
 
-### Analyzing the Bundle Size
+# Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+cd redux-pizza-app
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Install project dependencies:
 
-### Deployment
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+Start the local development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm start
+
+
+Access the Application:
+Open your browser and navigate to http://localhost:3000.
+
+🔄 Redux State Workflow
+
+[ Menu Page ] ──( Add to Cart )──> [ cartSlice ] ──( Updates Total )──> [ Navbar Badge ]
+                                        │
+                                        ▼
+[ Checkout Page ] ──( Fill Form )──> [ Order Summary Modal ]
+                                        │
+                         ┌──────────────┴──────────────┐
+                         ▼                             ▼
+                 dispatch(clearCart())         navigate('/')
+
+
+Item Selection: Users choose pizza parameters on the Menu Page; dispatched actions update cartSlice.
+
+Checkout Validation: The Checkout Page validates address input against form constraints.
+
+Modal & Confirmation: Submitting the form opens OrderSummaryModal.
+
+Completion: Confirming the order clears the cart state, displays a success toast notification, and navigates back to the main menu (/).
+
